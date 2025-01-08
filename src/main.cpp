@@ -83,7 +83,7 @@ void loop() {
       }
       else if(x == "Yellow")
       {
-        set_collor(CRGB::Yellow);
+        set_collor(0xFFFF00);
         Serial.println("Yellow");
       }
       else if(x == "White")

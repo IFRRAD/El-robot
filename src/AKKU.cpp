@@ -13,13 +13,13 @@ float get_akku()
 
 void akku_farbe(float Vbatt)
 {
-    if (Vbatt > 3.5)
+    if (Vbatt > 1.5)
     {
         set_collor(CRGB::Red);
     }
-    else if (Vbatt > 3.0)
+    else if (Vbatt > 2.5)
     {
-        set_collor(CRGB::Yellow);
+        set_collor(0XFFFF00);
     }
     else
     {
