@@ -5,7 +5,7 @@
 float get_akku()
 {
     int x = analogRead(ADC_PIN);        // Lokale Variable x
-    float Vout = (x * 3.3) /4095;    // Berechnung der Spannung Vout
+    float Vout = x * (3.3 / 4095);    // Berechnung der Spannung Vout
     float Vbatt = Vout * 1.47; // Umrechnung der Batteriespannung
     akku_farbe(Vbatt);
     return Vbatt;
