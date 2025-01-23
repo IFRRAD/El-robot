@@ -3,6 +3,6 @@
 
 #include <Arduino.h>
 
-void set_dac(float voltage, int channel);
+void set_dac(int voltage, int channel);
 
 #endif

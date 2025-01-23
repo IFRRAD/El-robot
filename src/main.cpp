@@ -16,6 +16,7 @@ int connect = 0;
 float Vbatt = 0;
 float ADC_Voltage = 0;
 int Adress = 0;
+int voltage = LOW;
 String x = "";
 String Aufbgabe = "";
 String Aufgabe = "";
@@ -35,7 +36,7 @@ void setup() {
 
 void loop() {
   while (!SerialBT.hasClient()) {
-    set_collor(CRGB::Blue);
+    set_collor(CRGB::Red);
     delay(200);
     set_collor(CRGB(0, 0, 0));
     delay(200);
@@ -66,15 +67,15 @@ void loop() {
 
       if(x == "Green")
       {
-        set_collor(CRGB::Red);
+        set_collor(CRGB::Green);
       }
       else if(x == "Red")
       {
-        set_collor(CRGB::Blue);
+        set_collor(CRGB::Red);
       }
       else if(x == "Blue")
       {
-        set_collor(CRGB::Green);
+        set_collor(CRGB::Blue);
       }
       else if(x == "Yellow")
       {
@@ -99,6 +100,7 @@ void loop() {
   else if (Aufbgabe == "2") {
     while (menuShown) {
       Vbatt = get_akku();
+      Serial.println("Akku Ladung: " + String(Vbatt) + "V");
       SerialBT.println("Akku Ladung: " + String(Vbatt) + "V");
       SerialBT.println("Gib 'end' ein, um zum Hauptmenü zurückzukehren.");
 
@@ -114,20 +116,31 @@ void loop() {
 
   else if (Aufbgabe == "3") {
     SerialBT.println("Welche Spannung möchtest du einstellen? (oder 'end' zum Hauptmenü zurück)");
-
-    while (menuShown) {
+  
+    if (voltage == LOW) {
+    while (!SerialBT.available()) {
+          
+    }
+    
     ADC_VOLT = SerialBT.readString();
-    ADC_VOLT.trim();
+    ADC_VOLT.trim();  
+    voltage = HIGH;   
+}
 
-    ADC_Voltage = ADC_VOLT.toFloat();
-    SerialBT.println("Eingestellte Spannung: " + String(ADC_Voltage) + "V");
+
+
+    int adcValue = ADC_VOLT.toInt();
+    set_dac(adcValue, 15);
+    
+      SerialBT.println("Eingestellte Spannung: " + String(ADC_Voltage) + "V");
       x = SerialBT.readString();
       x.trim();
       if (x == "end") {
+        voltage = LOW;
         menuShown = false;
         return;
       }
-    }
+    
   }
 
   else if (Aufbgabe == "4") {

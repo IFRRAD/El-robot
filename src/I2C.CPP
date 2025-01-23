@@ -2,15 +2,15 @@
 #include <Wire.h>
 #include <BluetoothSerial.h>
 
-BluetoothSerial SerialBT;
+
 
 int I2C_scan()
 {
- Wire.begin();
+ Wire.begin(15, 16);
     byte error, address;
     int nDevices = 0;
 
-    SerialBT.println("Scanning...");
+    Serial.println("Scanning...");
 
     for (address = 1; address < 127; address++)
     {
@@ -19,11 +19,11 @@ int I2C_scan()
 
         if (error == 0)
         {
-            SerialBT.print("I2C device found at address 0x");
+            Serial.print("I2C device found at address 0x");
             if (address < 16)
-            SerialBT.print("0");
-            SerialBT.print(address, HEX);
-            SerialBT.println(" !");
+                Serial.print("0");
+            Serial.print(address, HEX);
+            Serial.println(" !");
             nDevices++;
         }
     }
@@ -31,7 +31,7 @@ int I2C_scan()
     return address;
 
     if (nDevices == 0)
-        SerialBT.println("No I2C devices found");
+        Serial.println("No I2C devices found");
     else
-        SerialBT.println("done");
+        Serial.println("done");
 }
