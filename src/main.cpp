@@ -6,6 +6,7 @@
 #include "I2C.h"	
 #include <BluetoothSerial.h>
 
+
 #define ADC 36
 #define NUM_LEDS 4      // Anzahl der LEDs
 #define DATA_PIN 23     // Datenpin für die LEDs
